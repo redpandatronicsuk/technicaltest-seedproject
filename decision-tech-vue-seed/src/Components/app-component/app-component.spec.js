@@ -37,11 +37,4 @@ describe('App-Component', () => {
     const defaultData = MyComponent.data()
     expect(defaultData.deals.length).toBe(0)
   })
-
-
-  it('renders the correct message', () => {
-    const Ctor = Vue.extend(MyComponent)
-    const vm = new Ctor().$mount()
-    expect(vm.$el.textContent).toBe('[]')
-  })
 })
