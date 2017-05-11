@@ -1,8 +1,8 @@
 {
-  "name": "decision-tech-vue-seed",
+  "name": "decision-tech-angularjs-seed",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "webpack-dev-server --port=4200",
     "build": "webpack",
@@ -26,11 +26,13 @@
     "karma-webpack": "^2.0.3",
     "node-sass": "^4.5.2",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.4",
+    "sass-loader": "^6.0.5",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "angular": "^1.6.4",
+    "angular-mocks": "^1.6.4"
   }
 }

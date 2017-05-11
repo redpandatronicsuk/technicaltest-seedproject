@@ -1,8 +1,12 @@
 # DecisionTech AngularJs Seed
 
-##Entry points
+## Entry points
 * src/main.js
 * src/index.html
+
+##Setup
+Run `npm install` you made need a newer node version, ignore the python error
+
 
 ## Development server
 
