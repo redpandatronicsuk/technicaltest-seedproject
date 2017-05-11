@@ -1,5 +1,8 @@
-# DecisionTechReactSeed
+# DecisionTech React Seed
 
+##Entry points
+* src/main.js
+* src/index.html
 
 ## Development server
 
