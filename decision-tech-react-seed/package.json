@@ -30,7 +30,7 @@
     "json-loader": "^0.5.4",
     "node-sass": "^4.5.2",
     "raw-loader": "^0.5.1",
-    "react": "^2.3.3",
+    "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "sass-loader": "^6.0.4",
