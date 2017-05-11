@@ -4,7 +4,8 @@
 * src/main.js
 * src/index.html
 
-##Setup
+## Setup
+
 Run `npm install` you made need a newer node version, ignore the python error
 
 

@@ -2,7 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.3.
 
-##Setup
+## Setup
+
 Run `npm install` you made need a newer node version, ignore the python error
 
 
