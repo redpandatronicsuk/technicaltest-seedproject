@@ -35,8 +35,17 @@ body {
     color: white;
     transition: transform .3s ease-out;
     transform: translate3d(-200px, 0, 0);
+    &.open {
+        transform: translate3d(0, 0, 0);
+    }
 }
 
-#overlay.open {
-    transform: translate3d(0, 0, 0);
+.deal {
+    padding: 1em;
+    margin: 1em;
+    background-color: #EEE;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, .7);
+    img {
+        display: block;
+    }
 }

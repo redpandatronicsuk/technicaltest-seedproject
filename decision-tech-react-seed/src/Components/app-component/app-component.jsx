@@ -65,7 +65,23 @@ export default class App extends React.Component {
               d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
           </svg>
         </div>
-        {JSON.stringify(this.state.deals)}
+        {/*{JSON.stringify(this.state.deals)}*/}
+        {/* Though I could use id as key as they should be unique, but there is at least one duplicate */}
+        {this.state.deals.map((deal, i) => <div key={i} className="deal ">
+          <div>{deal.title}</div>
+          <div>{deal.contractLength}months</div>
+          <div>{deal.speed.label} MB</div>
+          <div>{deal.usage.label}</div>
+          <img src={deal.offer.smallLogo} alt={deal.offer.title} title={deal.offer.title} />
+          {deal.popularChannels ? deal.popularChannels.map(channel => <img src={channel.logo} alt={channel.name} title={channel.name} />) : null}
+          {deal.mobile ? <div>
+              <div>Data: {deal.mobile.data.label}</div>
+              <div>Minutes: {deal.mobile.minutes.label}</div>
+              <div>Text: {deal.mobile.texts.label}</div>
+              <div>Connection: {deal.mobile.connectionType.label}</div>
+            </div> : null}
+          <div>£{deal.prices[0].totalContractCost}</div>
+          </div>)}
         <div
           id="overlay"
           className={this.state.menuOpen
