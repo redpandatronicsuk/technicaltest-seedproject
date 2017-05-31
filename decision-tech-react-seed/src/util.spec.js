@@ -1,4 +1,4 @@
-import { doesDealHaveExactProductTypes, filterDealsByProductTypes } from './util'
+import { doesDealHaveExactProductTypes, filterDealsByProductTypesAndSpeed, doesDealHaveExactProductTypesAndSpeed } from './util'
 
 // Resuing same deals data as in real app. If this
 // data is dynamic, we should use a static deals
@@ -67,27 +67,53 @@ describe('doesDealHaveExactProductTypes Multiple Values Positive', () => {
 // })
 
 
-//Tests for function filterDealsByProductTypes
-describe('filterDealsByProductTypes filtering by Broadband', () => {
+//Tests for function filterDealsByProductTypesAndSpeed
+describe('filterDealsByProductTypesAndSpeed filtering by Broadband', () => {
   it('should return 3 deals', () => {
-    expect(filterDealsByProductTypes(deals, {Broadband: true, TV: false, Mobile: false}).length).toBe(3)
+    expect(filterDealsByProductTypesAndSpeed(deals, {Broadband: true, TV: false, Mobile: false}).length).toBe(3)
   })
 })
 
-describe('filterDealsByProductTypes filtering by Broadband & TV ', () => {
+describe('filterDealsByProductTypesAndSpeed filtering by Broadband & TV ', () => {
   it('should return 2 deals', () => {
-    expect(filterDealsByProductTypes(deals, {Broadband: true, TV: true, Mobile: false}).length).toBe(2)
+    expect(filterDealsByProductTypesAndSpeed(deals, {Broadband: true, TV: true, Mobile: false}).length).toBe(2)
   })
 })
 
-describe('filterDealsByProductTypes filtering by Broadband & Mobile ', () => {
+describe('filterDealsByProductTypesAndSpeed filtering by Broadband & Mobile ', () => {
   it('should return 1 deal', () => {
-    expect(filterDealsByProductTypes(deals, {Broadband: true, TV: false, Mobile: true}).length).toBe(1)
+    expect(filterDealsByProductTypesAndSpeed(deals, {Broadband: true, TV: false, Mobile: true}).length).toBe(1)
   })
 })
 
-describe('filterDealsByProductTypes filtering by Broadband & Mobile & TV + Speed=52MB', () => {
+describe('filterDealsByProductTypesAndSpeed filtering by Broadband & Mobile & TV + Speed=5MB', () => {
   it('should return 0 deals', () => {
-    expect(filterDealsByProductTypes(deals, {Broadband: true, TV: true, Mobile: true}).length).toBe(0)
+    expect(filterDealsByProductTypesAndSpeed(deals, {Broadband: true, TV: true, Mobile: true}, '5').length).toBe(0)
+  })
+})
+
+describe('filterDealsByProductTypesAndSpeed filtering by Broadband & Mobile & TV + Speed=52MB', () => {
+  it('should return 0 deals', () => {
+    expect(filterDealsByProductTypesAndSpeed(deals, {Broadband: true, TV: true, Mobile: true}, '52').length).toBe(1)
+  })
+})
+
+
+// New test with added speed:
+describe('doesDealHaveExactProductTypesAndSpeed Single Selected Value Positive', () => {
+  it('should return true as the deal has only the specified product type and speed', () => {
+    expect(doesDealHaveExactProductTypesAndSpeed(deals[0], {Broadband: true}, '17')).toBe(true)
+  })
+})
+
+describe('doesDealHaveExactProductTypesAndSpeed Single Selected Value Negative', () => {
+  it('should return false as the deal has only the specified product type, but different speed', () => {
+    expect(doesDealHaveExactProductTypesAndSpeed(deals[0], {Broadband: true}, '52')).toBe(false)
+  })
+})
+
+describe('doesDealHaveExactProductTypesAndSpeed Single Selected Value Positive', () => {
+  it('should return true as the deal has only the specified product type and speed is ignored', () => {
+    expect(doesDealHaveExactProductTypesAndSpeed(deals[0], {Broadband: true})).toBe(true)
   })
 })

@@ -59,7 +59,20 @@ function filterDealsByProductTypes(deals, productTypes) {
     })
 }
 
+function doesDealHaveExactProductTypesAndSpeed(deal, productTypes, speed) {
+    const correctOrIgnoredSpeed = speed ? deal.speed.label === speed : true
+    return doesDealHaveExactProductTypes(deal, productTypes) && correctOrIgnoredSpeed    
+  }
+
+function filterDealsByProductTypesAndSpeed(deals, productTypes, speed) {
+    return deals.filter(deal => {
+        return doesDealHaveExactProductTypesAndSpeed(deal, productTypes, speed)
+    })
+}
+
 export {
     doesDealHaveExactProductTypes,
-    filterDealsByProductTypes    
+    filterDealsByProductTypes,
+    doesDealHaveExactProductTypesAndSpeed,
+    filterDealsByProductTypesAndSpeed
 }
