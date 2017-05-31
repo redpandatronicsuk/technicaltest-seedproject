@@ -7,14 +7,32 @@ var service = function () {
         .then(rest => rest.deals)
     }
   }
-
 }();
+
+const filterOptions = {
+  // To make it more extensible, we could use objects instead
+  // such as: {displayName: 'Broadband', filterValue: 'Broadband', ...}
+  // but it seems the display value is the same as the raw data in the
+  // JSON, so I opted for compactness
+  type: [
+    'Broadband',
+    'TV',
+    'Mobile'
+  ],
+  speed: [
+    76,
+    52,
+    17
+  ]
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       'deals': [],
-      menuOpen: false
+      menuOpen: false,
+      selectedBroadbandFilterTypes: {}
     };
     service
       .fetchDeals()
@@ -52,7 +70,25 @@ export default class App extends React.Component {
           id="overlay"
           className={this.state.menuOpen
           ? 'open'
-          : ''}></div>
+          : ''}>
+            <ul>
+              {filterOptions.type.map(broadbandType => <li key={broadbandType}>
+                <input 
+                type="checkbox"
+                value={broadbandType}
+                onChange={()=> {
+                  const { selectedBroadbandFilterTypes } = this.state
+                  selectedBroadbandFilterTypes[broadbandType] = !selectedBroadbandFilterTypes[broadbandType]
+                  this.setState({selectedBroadbandFilterTypes})
+                }}/> {broadbandType}
+              </li>
+              )}
+            </ul>
+            <div>Speed</div>
+            <select value={this.state.value} onChange={this.handleChange}>
+              {filterOptions.speed.map(speed => <option value={speed}>{speed}</option>)}
+            </select>
+          </div>
       </div>
     );
   }
