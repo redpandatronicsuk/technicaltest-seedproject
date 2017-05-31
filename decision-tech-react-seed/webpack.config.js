@@ -4,22 +4,25 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CommonsChunkPlugin } = require('webpack').optimize;
-const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
+const {
+  CommonsChunkPlugin
+} = require('webpack').optimize;
+const {
+  BaseHrefWebpackPlugin
+} = require('base-href-webpack-plugin');
 const nodeModules = path.join(process.cwd(), 'node_modules');
-const entryPoints = ["inline","sw-register","styles","vendor","main"];
+const entryPoints = ["inline", "sw-register", "styles", "vendor", "main"];
 module.exports = {
   "devtool": "source-map",
   "resolve": {
     "extensions": [
-      ".js"
-      ,'.vue'
+      ".js", '.vue'
     ],
-      alias: {
-    vue: 'vue/dist/vue.js',
-    'assets': path.resolve(__dirname, '/src/assets'),
-    'components': path.resolve(__dirname, '../src/components')
-    
+    alias: {
+      vue: 'vue/dist/vue.js',
+      'assets': path.resolve(__dirname, '/src/assets'),
+      'components': path.resolve(__dirname, '../src/components')
+
     },
     "modules": [
       "./node_modules"
@@ -44,22 +47,29 @@ module.exports = {
     "chunkFilename": "[id].chunk.js"
   },
   "module": {
-    "rules": [
-      {
+    "rules": [{
         "enforce": "pre",
         "test": /\.js$/,
         "loader": "source-map-loader",
         "exclude": [
-          /node_modules/
+          /\/node_modules\//
         ]
       },
-      
- { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+
       {
-      test: /\/src\/components\/\.html$/,
-      loader: 'raw-loader'
-        },
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\/src\/components\/.html$/,
+        loader: 'raw-loader'
+      },
       {
         "test": /\.json$/,
         "loader": "json-loader"
@@ -84,7 +94,7 @@ module.exports = {
             }
           }
         ]
-      }      
+      }
     ]
   },
   "plugins": [
@@ -107,19 +117,22 @@ module.exports = {
         let leftIndex = entryPoints.indexOf(left.names[0]);
         let rightindex = entryPoints.indexOf(right.names[0]);
         if (leftIndex > rightindex) {
-            return 1;
+          return 1;
+        } else if (leftIndex < rightindex) {
+          return -1;
+        } else {
+          return 0;
         }
-        else if (leftIndex < rightindex) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
-    }
-}),
+      }
+    }),
 
-new CopyWebpackPlugin([ { from: 'src/assets', to: 'assets' } ]),
-new BaseHrefWebpackPlugin({ baseHref: '/' }),
+    new CopyWebpackPlugin([{
+      from: 'src/assets',
+      to: 'assets'
+    }]),
+    new BaseHrefWebpackPlugin({
+      baseHref: '/'
+    }),
     new CommonsChunkPlugin({
       "name": "inline",
       "minChunks": null
