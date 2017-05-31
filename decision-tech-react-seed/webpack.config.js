@@ -32,10 +32,10 @@ module.exports = {
   },
   "entry": {
     "main": [
-      "./src\\main.js"
+      "./src/main.js"
     ],
     "styles": [
-      "./src\\styles.scss"
+      "./src/styles.scss"
     ]
   },
   "output": {
@@ -50,7 +50,7 @@ module.exports = {
         "test": /\.js$/,
         "loader": "source-map-loader",
         "exclude": [
-          /\/node_modules\//
+          /node_modules/
         ]
       },
       
@@ -90,7 +90,7 @@ module.exports = {
   "plugins": [
     new ProgressPlugin(),
     new HtmlWebpackPlugin({
-      "template": "./src\\index.html",
+      "template": "./src/index.html",
       "filename": "./index.html",
       "hash": false,
       "inject": true,
