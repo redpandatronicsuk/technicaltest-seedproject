@@ -24,8 +24,8 @@ describe('doesDealHaveExactProductTypes', () => {
   it('should return false as the deal does not have the specified product type', () => {
     expect(doesDealHaveExactProductTypes(deals[0], {Mobile: true})).toBe(false)
   })
-  it('should return false as no product types are selected', () => {
-    expect(doesDealHaveExactProductTypes(deals[0], {Broadband: false})).toBe(false)
+  it('should return true as no product types are selected', () => {
+    expect(doesDealHaveExactProductTypes(deals[0], {Broadband: false})).toBe(true)
   })
   it('should return false as the deal does not have all selected product types', () => {
     expect(doesDealHaveExactProductTypes(deals[0], {Broadband: true, Mobile: true})).toBe(false)
