@@ -99,7 +99,7 @@ export default class App extends React.Component {
           </div>
           <div id="deals">
             <div id="table-header-row">
-              {columnHeadings.map(columnHeading => <div>{columnHeading}</div>)}
+              {columnHeadings.map(columnHeading => <div key={columnHeading}>{columnHeading}</div>)}
             </div>
             {filterDealsByProductTypesAndSpeed(this.state.deals, this.state.selectedBroadbandFilterTypes, this.state.selectedSpeed === 'ANY' ? null : this.state.selectedSpeed).map((deal, i) => <div key={i} className="deal">
               <div>{deal.title}</div>
