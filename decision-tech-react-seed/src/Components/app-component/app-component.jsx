@@ -28,6 +28,16 @@ const filterOptions = {
   ]
 }
 
+const columnHeadings = [
+  'About',
+  'contract length',
+  'speed/usage',
+  'Offer',
+  'TV',
+  'Mobile',
+  'Cost'
+]
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -88,19 +98,30 @@ export default class App extends React.Component {
             {filter}
           </div>
           <div id="deals">
-            {filterDealsByProductTypesAndSpeed(this.state.deals, this.state.selectedBroadbandFilterTypes, this.state.selectedSpeed === 'ANY' ? null : this.state.selectedSpeed).map((deal, i) => <div key={i} className="deal ">
+            <div id="table-header-row">
+              {columnHeadings.map(columnHeading => <div>{columnHeading}</div>)}
+            </div>
+            {filterDealsByProductTypesAndSpeed(this.state.deals, this.state.selectedBroadbandFilterTypes, this.state.selectedSpeed === 'ANY' ? null : this.state.selectedSpeed).map((deal, i) => <div key={i} className="deal">
               <div>{deal.title}</div>
               <div>{deal.contractLength}months</div>
-              <div>{deal.speed.label} MB</div>
-              <div>{deal.usage.label}</div>
-              <img src={deal.offer.smallLogo} alt={deal.offer.title} title={deal.offer.title} />
-              {deal.popularChannels ? deal.popularChannels.map((channel, i) => <img key={i} src={channel.logo} alt={channel.name} title={channel.name} />) : null}
-              {deal.mobile ? <div>
+              <div>
+                <div>{deal.speed.label} MB</div>
+                <div>{deal.usage.label}</div>
+                </div>
+              <div>
+                <img src={deal.offer.smallLogo} alt={deal.offer.title} title={deal.offer.title} />
+              </div>
+              <div>
+                {deal.popularChannels ? deal.popularChannels.map((channel, i) => <img key={i} src={channel.logo} alt={channel.name} title={channel.name} />) : null}
+              </div>
+              <div>
+                {deal.mobile ? <div>
                   <div>Data: {deal.mobile.data.label}</div>
                   <div>Minutes: {deal.mobile.minutes.label}</div>
                   <div>Text: {deal.mobile.texts.label}</div>
                   <div>Connection: {deal.mobile.connectionType.label}</div>
                 </div> : null}
+              </div>
               <div>£{deal.prices[0].totalContractCost}</div>
               </div>)}
           </div>

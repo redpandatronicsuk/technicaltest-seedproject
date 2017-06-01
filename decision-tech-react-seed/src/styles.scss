@@ -1,4 +1,5 @@
-$content-max-width: 800px;
+$content-min-width: 800px;
+$content-max-width: 1200px;
 $light-grey: #dedede;
 $very-light-grey: #EEE;
 $top-bar-height: 72px;
@@ -60,13 +61,16 @@ body {
     #filter {
         display: none;
         background: $light-grey;
-        width: 200px;
+        min-width: 160px;
     }
 }
 
 #deals {
     flex-grow: 1;
 }
+
+
+/* On mobile looks like a card with vertical ordering */
 
 .deal {
     padding: 1em;
@@ -81,10 +85,50 @@ body {
     }
 }
 
+#table-header-row {
+    display: none;
+}
+
 
 /* Desktop styles */
 
-@media (min-width: $content-max-width) {
+@media (min-width: $content-min-width) {
+    .table-row {
+        display: flex;
+        text-align: center;
+        >div:nth-child(1) {
+            min-width: 150px;
+            flex-basis: 200px;
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+        >div:nth-child(2) {
+            min-width: 100px;
+            flex-basis: 110px;
+            flex-shrink: 1;
+        }
+        >div:nth-child(3) {
+            width: 90px;
+        }
+        >div:nth-child(4) {
+            width: 67px;
+        }
+        >div:nth-child(5) {
+            width: 100px;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            img {
+                margin: auto;
+            }
+        }
+        >div:nth-child(6) {
+            width: 100px;
+        }
+        >div:nth-child(7) {
+            width: 64px;
+        }
+    }
     svg#burger-menu {
         display: none;
     }
@@ -94,5 +138,19 @@ body {
             margin-top: -.75px;
             padding: .5em 1em;
         }
+    }
+    /* On desktop looks like a table row */
+    #table-header-row {
+        @extend .table-row;
+        font-weight: 900;
+    }
+    .deal {
+        background: transparent;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        @extend .table-row;
     }
 }
