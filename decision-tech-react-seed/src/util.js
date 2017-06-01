@@ -41,6 +41,10 @@ function areTheSameSet(a,b) {
  */
 function doesDealHaveExactProductTypes(deal, productTypes) {
     const arrayOfStringSelections = Object.keys(productTypes).filter(name => productTypes[name])
+    // In case there are no criterias, we can return true
+    if (arrayOfStringSelections.length === 0) {
+        return true
+    }
     // Add phone as it is not part of the selection array
     arrayOfStringSelections.push('Phone')
     return areTheSameSet(arrayOfStringSelections, deal.productTypes)
