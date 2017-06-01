@@ -1,3 +1,11 @@
+$content-max-width: 800px;
+$light-grey: #dedede;
+$very-light-grey: #EEE;
+$top-bar-height: 72px;
+* {
+    box-sizing: border-box;
+}
+
 html,
 body {
     padding: 0;
@@ -17,12 +25,16 @@ body {
 /* Mobile first styles, then overwite later for desktop */
 
 #top-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 1em;
-    background-color: lightgray;
+    background-color: $light-grey;
+    #top-bar-content {
+        max-width: $content-max-width;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 1em;
+    }
 }
 
 #overlay {
@@ -40,15 +52,47 @@ body {
     }
 }
 
+#content {
+    max-width: $content-max-width;
+    margin: auto;
+    display: flex;
+    min-height: calc(100vh - #{$top-bar-height});
+    #filter {
+        display: none;
+        background: $light-grey;
+        width: 200px;
+    }
+}
+
+#deals {
+    flex-grow: 1;
+}
+
 .deal {
     padding: 1em;
     margin: 1em;
-    background-color: #EEE;
+    background-color: $very-light-grey;
     box-shadow: 0 1px 10px rgba(0, 0, 0, .7);
     img {
         display: block;
     }
     & * {
         margin: .1em 0;
+    }
+}
+
+
+/* Desktop styles */
+
+@media (min-width: $content-max-width) {
+    svg#burger-menu {
+        display: none;
+    }
+    #content {
+        #filter {
+            display: block;
+            margin-top: -.75px;
+            padding: .5em 1em;
+        }
     }
 }
