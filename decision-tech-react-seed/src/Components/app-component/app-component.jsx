@@ -59,6 +59,51 @@ export default class App extends React.Component {
     })
   }
 
+  renderMobileColumn(deal) {
+    return (
+    <div>
+      <div>Data: {deal.mobile.data.label}</div>
+      <div>Minutes: {deal.mobile.minutes.label}</div>
+      <div>Text: {deal.mobile.texts.label}</div>
+      <div>Connection: {deal.mobile.connectionType.label}</div>
+    </div>
+          )
+  }
+
+  renderDeal(deal, i) {
+    // Thought I could use id as key as they should be unique, but 
+    // there is at least one duplicate, so using index (i) instead
+    // for key
+    return (
+     <div key={i} className="deal">
+        <div>{deal.title}</div>
+        <div>{deal.contractLength}months</div>
+        <div>
+          <div>{deal.speed.label} MB</div>
+          <div>{deal.usage.label}</div>
+        </div>
+        <div>
+          <img src={deal.offer.smallLogo} alt={deal.offer.title} title={deal.offer.title} />
+        </div>
+        <div>
+          {deal.popularChannels ? deal.popularChannels.map((channel, i) => <img key={i} src={channel.logo} alt={channel.name} title={channel.name}
+          />) : null}
+        </div>
+        <div>
+          {deal.mobile ? this.renderMobileColumn(deal) : null}
+        </div>
+        <div>£{deal.prices[0].totalContractCost}</div>
+      </div>
+    )
+  }
+
+  renderDeals() {
+    return filterDealsByProductTypesAndSpeed(this.state.deals, 
+            this.state.selectedBroadbandFilterTypes, 
+            this.state.selectedSpeed === 'ANY' ? null : this.state.selectedSpeed)
+            .map((deal, i) => this.renderDeal(deal,i))
+  }
+
   render() {
     const filter = <Filter 
       onSpeedSelect={selectedSpeed => this.setState({selectedSpeed})}
@@ -92,7 +137,6 @@ export default class App extends React.Component {
             </svg>
           </div>
         </div>
-        {/* Thought I could use id as key as they should be unique, but there is at least one duplicate */}
         <div id="content">
           <div id="filter">
             {filter}
@@ -101,29 +145,7 @@ export default class App extends React.Component {
             <div id="table-header-row">
               {columnHeadings.map(columnHeading => <div key={columnHeading}>{columnHeading}</div>)}
             </div>
-            {filterDealsByProductTypesAndSpeed(this.state.deals, this.state.selectedBroadbandFilterTypes, this.state.selectedSpeed === 'ANY' ? null : this.state.selectedSpeed).map((deal, i) => <div key={i} className="deal">
-              <div>{deal.title}</div>
-              <div>{deal.contractLength}months</div>
-              <div>
-                <div>{deal.speed.label} MB</div>
-                <div>{deal.usage.label}</div>
-                </div>
-              <div>
-                <img src={deal.offer.smallLogo} alt={deal.offer.title} title={deal.offer.title} />
-              </div>
-              <div>
-                {deal.popularChannels ? deal.popularChannels.map((channel, i) => <img key={i} src={channel.logo} alt={channel.name} title={channel.name} />) : null}
-              </div>
-              <div>
-                {deal.mobile ? <div>
-                  <div>Data: {deal.mobile.data.label}</div>
-                  <div>Minutes: {deal.mobile.minutes.label}</div>
-                  <div>Text: {deal.mobile.texts.label}</div>
-                  <div>Connection: {deal.mobile.connectionType.label}</div>
-                </div> : null}
-              </div>
-              <div>£{deal.prices[0].totalContractCost}</div>
-              </div>)}
+            {this.renderDeals()}
           </div>
         </div>
         <div
